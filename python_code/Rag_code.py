@@ -1,12 +1,11 @@
 from openai import OpenAI
 import os
 from dotenv import load_dotenv
-import json
 from sentence_transformers import SentenceTransformer
 from huggingface_hub import snapshot_download
 import faiss
 import numpy as np
-import openai
+
 
 load_dotenv()
 
