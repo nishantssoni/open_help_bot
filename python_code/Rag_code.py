@@ -10,25 +10,6 @@ import numpy as np
 load_dotenv()
 
 
-# Initialize OpenAI API
-client = OpenAI(
-    api_key=os.getenv("TOKEN"),
-    base_url=os.getenv("BASE_URL"),
-)
-model_name = os.getenv("MODEL_NAME")
-
-
-# Download and Load the BGE-Small model to a local directory
-local_model_path = "./bge-small-en"
-snapshot_download(repo_id="BAAI/bge-small-en", local_dir=local_model_path)
-
-# Now load the locally saved model
-bge_model = SentenceTransformer(local_model_path)
-
-# Load the BGE-Small model and store in cache
-# model = SentenceTransformer("BAAI/bge-small-en")
-
-
 def get_chat_response(client, model_name, messages, temprature=0.0, top_p=0.8, max_tokens=100):
     input_messages = []
     for message in messages:
@@ -68,7 +49,6 @@ def store_embeddings(data, model, index_file="bge_vector_store.index", save_inde
         index = faiss.IndexFlatL2(dimension)
         index.add(embeddings)
         faiss.write_index(index, index_file)
-        print("Embeddings stored successfully!")
     
     return embeddings
 
@@ -114,8 +94,29 @@ if __name__ == "__main__":
     
     data = [iphone_16, samsung_s24]
 
+    # Initialize OpenAI API
+    client = OpenAI(
+        api_key=os.getenv("TOKEN"),
+        base_url=os.getenv("BASE_URL"),
+    )
+    model_name = os.getenv("MODEL_NAME")
+    print("Model name:", model_name)
+
+
+    # Download and Load the BGE-Small model to a local directory
+    local_model_path = "../bge-small-en"
+    snapshot_download(repo_id="BAAI/bge-small-en", local_dir=local_model_path)
+
+    # Now load the locally saved model
+    bge_model = SentenceTransformer(local_model_path)
+    print("BGEModel loaded")
+
+    # Load the BGE-Small model and store in cache
+    # model = SentenceTransformer("BAAI/bge-small-en")
+
     # Embeddings
-    # store_embeddings(data, bge_model, save_index=True)
+    store_embeddings(data, bge_model, save_index=True)
+    print("Embeddings stored successfully!")
 
     user_prompt = f"What's new in iphone 16?"
     response = retrieve_and_respond(client,model_name,user_prompt,bge_model, "bge_vector_store.index", data, top_k=1)
