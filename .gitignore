@@ -1,3 +1,9 @@
+#my project personal
+bge_vector_store.index
+python_code/test.py
+bge-small-en
+
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
