@@ -2,6 +2,7 @@
 bge_vector_store.index
 python_code/test.py
 bge-small-en
+apriori_recommendation.json
 
 
 # Byte-compiled / optimized / DLL files
