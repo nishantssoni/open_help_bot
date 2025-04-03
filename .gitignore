@@ -3,6 +3,7 @@ bge_vector_store.index
 python_code/test.py
 bge-small-en
 apriori_recommendation.json
+python_code/faiss_product.index
 
 
 # Byte-compiled / optimized / DLL files
