@@ -4,6 +4,7 @@ python_code/test.py
 bge-small-en
 apriori_recommendation.json
 python_code/faiss_product.index
+python_code/data.pkl
 
 
 # Byte-compiled / optimized / DLL files
