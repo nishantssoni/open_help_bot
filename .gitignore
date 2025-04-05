@@ -1,10 +1,10 @@
 #my project personal
 bge_vector_store.index
-python_code/test.py
+test.py
 bge-small-en
 apriori_recommendation.json
-python_code/faiss_product.index
-python_code/data.pkl
+data.pkl
+faiss_product.index
 
 
 # Byte-compiled / optimized / DLL files

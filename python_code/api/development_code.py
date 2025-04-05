@@ -1,5 +1,6 @@
 from agents import (GuardAgent,
-                    ClassificationAgent
+                    ClassificationAgent,
+                    DetailsAgent
                     )
 import os
 
@@ -9,6 +10,7 @@ def main():
 if __name__ == "__main__":
     guard_agent = GuardAgent()
     classification_agent = ClassificationAgent()
+    details_agent = DetailsAgent()
 
     messages = []
     
@@ -36,5 +38,14 @@ if __name__ == "__main__":
         response = classification_agent.get_response(messages)
         chosen_agent = response["memory"]["classification_decision"]
         print("Chosen Agent: ", chosen_agent)
+
+        # get detail agent response
+        if chosen_agent == "details_agent":
+            response = details_agent.get_response(messages)
+            messages.append(response)
+        elif chosen_agent == "order_taking_agent":
+            pass
+        elif chosen_agent == "recommendation_agent":
+            pass
         
 
