@@ -2,15 +2,16 @@ from agents import (GuardAgent,
                     ClassificationAgent,
                     DetailsAgent
                     )
+from agents import AgentProtocol
 import os
 
 def main():
-    pass
-
-if __name__ == "__main__":
     guard_agent = GuardAgent()
     classification_agent = ClassificationAgent()
-    details_agent = DetailsAgent()
+    
+    agent_dict: dict[str, AgentProtocol] = {
+        "details_agent": DetailsAgent(),
+    }
 
     messages = []
     
@@ -39,13 +40,12 @@ if __name__ == "__main__":
         chosen_agent = response["memory"]["classification_decision"]
         print("Chosen Agent: ", chosen_agent)
 
-        # get detail agent response
-        if chosen_agent == "details_agent":
-            response = details_agent.get_response(messages)
-            messages.append(response)
-        elif chosen_agent == "order_taking_agent":
-            pass
-        elif chosen_agent == "recommendation_agent":
-            pass
-        
+        # get the chosen agent's response
+        agent = agent_dict[chosen_agent]
+        response = agent.get_response(messages)
+        messages.append(response)
+
+
+if __name__ == "__main__":
+    main()
 
