@@ -7,7 +7,6 @@ import json
 load_dotenv()
 
 
-
 class ClassificationAgent:
     def __init__(self):
         self.client = OpenAI(

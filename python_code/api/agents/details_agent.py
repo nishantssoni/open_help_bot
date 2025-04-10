@@ -19,7 +19,6 @@ class DetailsAgent:
         )
         self.model_name = os.getenv("MODEL_NAME")
         self.index_file_name = "faiss_product.index"
-        print("current directory is : ", os.getcwd())
 
         # Download the model to a local directory
         self.local_model_path = "bge-small-en"

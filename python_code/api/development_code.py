@@ -1,6 +1,7 @@
 from agents import (GuardAgent,
                     ClassificationAgent,
-                    DetailsAgent
+                    DetailsAgent,
+                    RecommendationAgent
                     )
 from agents import AgentProtocol
 import os
@@ -14,8 +15,10 @@ def main():
     }
 
     messages = []
-    
-    while True:
+
+    recommendation_agent = RecommendationAgent("python_code/api/recommendation_objects/apriori_recommendation.json", "python_code/api/recommendation_objects/popularity_recommendation.csv")
+    print(recommendation_agent.get_apriori_recommendation(['Croissant']))
+    while False:
         # Display the chat history
         # os.system('cls' if os.name == 'nt' else 'clear')
         print("\n\nPrint Messages ...............")
