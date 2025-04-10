@@ -12,13 +12,15 @@ def main():
     
     agent_dict: dict[str, AgentProtocol] = {
         "details_agent": DetailsAgent(),
+        "recommendation_agent": RecommendationAgent("python_code/api/recommendation_objects/apriori_recommendation.json",
+                                                     "python_code/api/recommendation_objects/popularity_recommendation.csv"),
     }
 
     messages = []
 
-    recommendation_agent = RecommendationAgent("python_code/api/recommendation_objects/apriori_recommendation.json", "python_code/api/recommendation_objects/popularity_recommendation.csv")
-    print(recommendation_agent.get_apriori_recommendation(['Croissant']))
-    while False:
+    # recommendation_agent = RecommendationAgent()
+    # print(recommendation_agent.get_apriori_recommendation(['Croissant']))
+    while True:
         # Display the chat history
         # os.system('cls' if os.name == 'nt' else 'clear')
         print("\n\nPrint Messages ...............")

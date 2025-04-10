@@ -3,7 +3,7 @@ import os
 import pickle
 from copy import deepcopy
 import faiss
-from .utils import get_chat_response, get_embedding
+from .utils import get_chat_response, get_embedding, double_check_json_output
 from sentence_transformers import SentenceTransformer
 from huggingface_hub import snapshot_download
 from dotenv import load_dotenv
