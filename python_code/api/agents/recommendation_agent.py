@@ -2,10 +2,9 @@ from openai import OpenAI
 import os
 import pandas as pd
 from copy import deepcopy
-from .utils import get_chat_response
+from .utils import get_chat_response, double_check_json_output
 from dotenv import load_dotenv
 import json
-from utils import double_check_json_output
 load_dotenv()
 
 
@@ -104,7 +103,7 @@ class RecommendationAgent:
         input_messages = [{"role": "system", "content": system_prompt}] + messages[-3:]
 
         chatbot_output =get_chat_response(self.client,self.model_name,input_messages)
-        chatbot_output=double_check_json_output(self.client,self.model_name,chatbot_output)
+        
         output = self.postprocess_classfication(chatbot_output)
         return output
 
@@ -149,8 +148,13 @@ class RecommendationAgent:
         return output
 
 
-    def postprocess_classfication(self,output):
-        output = json.loads(output)
+    def postprocess_classfication(self,response):
+        print(response)
+        try:
+            output = json.loads(response)
+        except:
+            corrected_json = double_check_json_output(self.client,self.model_name,response)
+            output = json.loads(corrected_json)
 
         dict_output = {
             "recommendation_type": output['recommendation_type'],
@@ -189,6 +193,7 @@ class RecommendationAgent:
         return output
     
     def postprocess(self,output):
+        print(output)
         output = {
             "role": "assistant",
             "content": output,

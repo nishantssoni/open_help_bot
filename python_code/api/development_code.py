@@ -42,8 +42,9 @@ def main():
 
         # Get classification agent
         response = classification_agent.get_response(messages)
+        print("Chosen Agent preee: ")
         chosen_agent = response["memory"]["classification_decision"]
-        print("Chosen Agent: ", chosen_agent)
+        print("Chosen Agent posttt: ", chosen_agent)
 
         # get the chosen agent's response
         agent = agent_dict[chosen_agent]

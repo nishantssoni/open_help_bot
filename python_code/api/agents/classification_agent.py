@@ -1,7 +1,7 @@
 from openai import OpenAI
 import os
 from copy import deepcopy
-from .utils import get_chat_response
+from .utils import get_chat_response, double_check_json_output
 from dotenv import load_dotenv
 import json
 load_dotenv()
@@ -29,8 +29,10 @@ class ClassificationAgent:
             {
             "chain of thought": "go over each of the agents above and write some your thoughts about what agent is this input relevant to.",
             "decision": "details_agent" or "order_taking_agent" or "recommendation_agent". Pick one of those. and only write the word.,
-            "message": leave the message empty.
+            "message": "leave the message empty.",
             }
+
+            Your not allowed to return anything other than a valid JSON object.
         """
         input_messages = [{"role": "system", "content": system_prompt}]  + messages[-3:]
 
@@ -40,16 +42,20 @@ class ClassificationAgent:
         return output
     
     def postprocess(self, response):
-        # print("chosen agent response: ", response)
-        output = json.loads(response)
-        
+        print(response)
+        try:
+            output = json.loads(response)
+        except:
+            corrected_json = double_check_json_output(self.client,self.model_name,response)
+            output = json.loads(corrected_json)
+            
         dict_output = {
-            "role": "assistant",
-            "content": output["message"],
-            "memory":{
-                "agent":"classification_agent",
-                "classification_decision":output["decision"],
-            }
+        "role": "assistant",
+        "content": output["message"],
+        "memory":{
+            "agent":"classification_agent",
+            "classification_decision":output["decision"],
+                }
         }
 
         return dict_output

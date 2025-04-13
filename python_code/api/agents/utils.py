@@ -30,13 +30,26 @@ def get_embedding(model,text_input):
 
 
 def double_check_json_output(client,model_name,json_string):
-    prompt = f""" You will check this json string and correct any mistakes that will make it invalid. Then you will return the corrected json string. Nothing else. 
-    If the Json is correct just return it.
+    prompt = f"""
+            You are a JSON validator and fixer.
 
-    Do NOT return a single letter outside of the json string.
+            You will be given an input that is **supposed** to be a single, valid JSON object, but it may contain:
+            - Multiple JSON objects (one after another without being in an array)
+            - Syntax errors (missing commas, quotes, or brackets)
+            - Use of single quotes instead of double quotes
+            - Non-string values (convert all values to strings)
+            - Escaped characters or malformed JSON
 
-    {json_string}
-    """
+            Your job:
+            - If the input is a valid **single** JSON object, return it exactly as it is.
+            - If the input contains **multiple** JSON objects, only return the **first valid object**.
+            - If the input is invalid, return a **corrected single valid JSON object** based on the content.
+            - DO NOT return anything except a valid JSON object.
+            - DO NOT return arrays, explanations, or any extra content — just one valid JSON object.
+
+            Here is the input:
+            {json_string}
+"""
 
     messages = [{"role": "user", "content": prompt}]
 
