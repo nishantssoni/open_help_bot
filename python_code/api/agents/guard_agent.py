@@ -48,11 +48,12 @@ class GuardAgent:
         return output
     
     def postprocess(self, response):
-        print(response)
+        # print(response)
         try:
             output = json.loads(response)
         except:
             corrected_json = double_check_json_output(self.client,self.model_name,response)
+            print("corrected_json :: ",corrected_json)
             output = json.loads(corrected_json)
         
         

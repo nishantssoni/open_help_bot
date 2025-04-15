@@ -49,6 +49,8 @@ def double_check_json_output(client,model_name,json_string):
 
             Here is the input:
             {json_string}
+        You are not allowed to return anything other than a valid JSON object.and also dont write anything other that json object
+        before or after curly brackets of the json object.
 """
 
     messages = [{"role": "user", "content": prompt}]
