@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-def get_chat_response(client, model_name, messages, temprature=0.0, top_p=0.8, max_tokens=100):
+def get_chat_response(client, model_name, messages, temprature=0.0, top_p=0.8, max_tokens=5000):
     input_messages = []
     for message in messages:
         input_messages.append({"role": message["role"], "content": message["content"]})

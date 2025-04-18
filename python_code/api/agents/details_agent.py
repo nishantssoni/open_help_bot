@@ -67,6 +67,7 @@ class DetailsAgent:
         return output
 
     def postprocess(self,output):
+        print("the details agent response : ",output)
         output = {
             "role": "assistant",
             "content": output,

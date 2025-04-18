@@ -149,12 +149,10 @@ class RecommendationAgent:
 
 
     def postprocess_classfication(self,response):
-        # print("the responce is :: ",response)
         try:
             output = json.loads(response)
         except:
             corrected_json = double_check_json_output(self.client,self.model_name,response)
-            # print("corrected_json :: ",corrected_json)
             output = json.loads(corrected_json)
 
         dict_output = {
@@ -194,7 +192,7 @@ class RecommendationAgent:
         return output
     
     def postprocess(self,output):
-        print(output)
+        print("the recommendation agent response : ",output)
         output = {
             "role": "assistant",
             "content": output,

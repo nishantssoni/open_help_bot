@@ -1,7 +1,8 @@
 from agents import (GuardAgent,
                     ClassificationAgent,
                     DetailsAgent,
-                    RecommendationAgent
+                    RecommendationAgent,
+                    OrderTakingAgent
                     )
 from agents import AgentProtocol
 import os
@@ -9,11 +10,12 @@ import os
 def main():
     guard_agent = GuardAgent()
     classification_agent = ClassificationAgent()
+    recommendation_agent = RecommendationAgent("python_code/api/recommendation_objects/apriori_recommendation.json","python_code/api/recommendation_objects/popularity_recommendation.csv")
     
     agent_dict: dict[str, AgentProtocol] = {
         "details_agent": DetailsAgent(),
-        "recommendation_agent": RecommendationAgent("python_code/api/recommendation_objects/apriori_recommendation.json",
-                                                     "python_code/api/recommendation_objects/popularity_recommendation.csv"),
+        "order_taking_agent": OrderTakingAgent(recommendation_agent),
+        "recommendation_agent": recommendation_agent
     }
 
     messages = []
@@ -47,6 +49,7 @@ def main():
         agent = agent_dict[chosen_agent]
         response = agent.get_response(messages)
         messages.append(response)
+        print(response)
 
 
 if __name__ == "__main__":

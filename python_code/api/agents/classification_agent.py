@@ -42,7 +42,7 @@ class ClassificationAgent:
         return output
     
     def postprocess(self, response):
-        print(response)
+        print("the classification agent response : ",response)
         try:
             output = json.loads(response)
         except:
