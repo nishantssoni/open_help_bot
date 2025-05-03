@@ -41,6 +41,7 @@ class GuardAgent:
             """
 
         input_messages = [{"role": "system", "content": system_prompt}]  + messages[-3:]
+        print("\n\n the last messages :: ",messages[-3:])?
 
         chatbot_response = get_chat_response(self.client, self.model_name, input_messages,max_tokens=1000)
         output = self.postprocess(chatbot_response)
